@@ -1,11 +1,12 @@
 import { CategoryResponse } from './../api-doc/category.response';
-import {Body, Controller, Delete, Get, HttpCode, Param, Post, Put, ValidationPipe} from '@nestjs/common';
+import {Body, ClassSerializerInterceptor, Controller, Delete, Get, HttpCode, Param, Post, Put, UseInterceptors, ValidationPipe} from '@nestjs/common';
 import {Repository} from "typeorm";
 import {Category} from "./category.entity";
 import {InjectRepository} from "@nestjs/typeorm";
 import { ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
 import { CategoryDto } from 'src/dto/category.dto';
 
+@UseInterceptors(ClassSerializerInterceptor)
 @Controller('categories')
 export class CategoryController {
     
