@@ -8,3 +8,6 @@ npm install --save typeorm mysql @nestjs/typeorm
 
 ### Read .env file
 ` npm install --save @nestjs/config `
+
+### Install Swagger
+` npm install --save @nestjs/swagger swagger-ui-express `
