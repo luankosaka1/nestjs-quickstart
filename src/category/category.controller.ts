@@ -1,7 +1,10 @@
-import {Body, Controller, Delete, Get, HttpCode, Param, Post, Put} from '@nestjs/common';
+import { CategoryResponse } from './../api-doc/category.response';
+import {Body, Controller, Delete, Get, HttpCode, Param, Post, Put, ValidationPipe} from '@nestjs/common';
 import {Repository} from "typeorm";
 import {Category} from "./category.entity";
 import {InjectRepository} from "@nestjs/typeorm";
+import { ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
+import { CategoryDto } from 'src/dto/category.dto';
 
 @Controller('categories')
 export class CategoryController {
@@ -16,6 +19,7 @@ export class CategoryController {
         return await this.categoryRepo.find();
     }
 
+    @ApiOkResponse({type: CategoryResponse})
     @Get(':id')
     findOne(@Param('id') id: number): Promise<Category> {
         return this.categoryRepo.findOneOrFail({id});
@@ -28,8 +32,11 @@ export class CategoryController {
         return this.categoryRepo.findOneOrFail(id);
     }
 
+    @ApiCreatedResponse({type: CategoryResponse})
     @Post()
-    async store(@Body() body: Category): Promise<Category> {
+    async store(@Body(new ValidationPipe({
+        errorHttpStatusCode: 422
+    })) body: CategoryDto): Promise<Category> {
         const category = this.categoryRepo.create(body);
         return await this.categoryRepo.save(category);
     }

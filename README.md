@@ -11,3 +11,7 @@ npm install --save typeorm mysql @nestjs/typeorm
 
 ### Install Swagger
 ` npm install --save @nestjs/swagger swagger-ui-express `
+
+### Validate Class
+` npm install --save class-validator `
+` npm install --save class-transformer `
